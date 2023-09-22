@@ -1,0 +1,16 @@
+
+
+Structure:
+
+1. databse  ->
+
+2. internal -> includes the entire logic module 
+
+        repository  ->  communication with database
+
+        service ->  bussiness logic
+
+        api ->  restAPI
+
+
+1. settings ->  includes the config files
