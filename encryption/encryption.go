@@ -4,6 +4,7 @@ import (
 	"crypto/aes"
 	"crypto/cipher"
 	"crypto/rand"
+	"encoding/base64"
 	"errors"
 	"io"
 )
@@ -59,4 +60,14 @@ func Decrypt(ciphertext []byte) ([]byte, error) {
 
 	return gcm.Open(nil, nonce, ciphertext, nil)
 
+}
+
+// The function "ToBase64" encodes a byte array into a base64 string using the RawStdEncoding.
+func ToBase64(plaintext []byte) string {
+	return base64.RawStdEncoding.EncodeToString(plaintext)
+}
+
+// The function "FromBase64" decodes a base64 encoded string into a byte slice.
+func FromBase64(ciphertext string) ([]byte, error) {
+	return base64.RawStdEncoding.DecodeString(ciphertext)
 }
