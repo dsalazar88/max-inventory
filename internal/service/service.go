@@ -5,6 +5,15 @@ import (
 	"courses/golang/inventory-project/internal/models"
 	"courses/golang/inventory-project/internal/repository"
 	"courses/golang/inventory-project/internal/utils"
+	"errors"
+)
+
+// Message for ERRORS
+var (
+	ErrUserAlreadyExists  = errors.New("user already exists")
+	ErrInvalidCredentials = errors.New("invalid credentials")
+	ErrRoleAlreadyAdded   = errors.New("role was already added for this user")
+	ErrRoleNotFound       = errors.New("roles was not found")
 )
 
 var (
@@ -30,7 +39,7 @@ var (
 // context.Context object and an int64 value representing the product ID as parameters. It returns a
 // pointer to a models.Product object and an error.
 //
-//go:generate mockery --name=Service --output=service --inpackage
+//go:generate mockery --name=Service --output=test
 type Service interface {
 	RegisterUser(ctx context.Context, email, name, password string) error
 	LoginUser(ctx context.Context, email, password string) (*models.User, error)
@@ -38,10 +47,9 @@ type Service interface {
 	SaveUserRole(ctx context.Context, userId, roleId int64) error
 	RemoveUserRole(ctx context.Context, userId, roleId int64) error
 
-	//AddProduct(ctx context.Context, name, product models.Product, email string) error
+	AddProduct(ctx context.Context, product models.Product, email string) error
 	GetProducts(ctx context.Context) ([]models.Product, error)
 	GetProduct(ctx context.Context, id int64) (*models.Product, error)
-	Test() bool
 }
 
 type serv struct {

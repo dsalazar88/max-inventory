@@ -4,11 +4,11 @@ services:
     image: mariadb:10.7.4
     restart: always
     environment:
-      MYSQL_DATABASE: max_inventory
-      MYSQL_USER: root
-      MYSQL_PASSWORD: rootroot
+      MARIADB_DATABASE: max_inventory
+      MARIADB_USER: root
+      MARIADB_ROOT_PASSWORD: rootroot
     ports:
-      - '3306:3306'
+      - '3307:3306'
     volumes: 
       - data:/var/lib/mysql
   

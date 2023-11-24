@@ -2,15 +2,18 @@
 
 Structure:
 
-1. databse  ->
+1. database ->
 
-2. internal -> includes the entire logic module 
+2. encryption
 
-        repository  ->  communication with database
+2. internal             ->      includes the entire logic module 
 
-        service ->  bussiness logic
+        2.2 repository      ->      communication with database
 
-        api ->  restAPI
+        2.3 service         ->      This layer works as an intermediary between 
+                                the requests and the repository layer.
+
+        2.4 api             ->      restAPI
 
 
-1. settings ->  includes the config files
+3. settings ->  includes the config files

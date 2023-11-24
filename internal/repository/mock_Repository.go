@@ -132,13 +132,13 @@ func (_m *MockRepository) RemoveUserRole(ctx context.Context, userId int64, role
 	return r0
 }
 
-// SaveProduct provides a mock function with given fields: ctx, name, description, price, created_by
-func (_m *MockRepository) SaveProduct(ctx context.Context, name string, description string, price float32, created_by int64) error {
-	ret := _m.Called(ctx, name, description, price, created_by)
+// SaveProduct provides a mock function with given fields: ctx, name, description, price, createdBy
+func (_m *MockRepository) SaveProduct(ctx context.Context, name string, description string, price float32, createdBy int64) error {
+	ret := _m.Called(ctx, name, description, price, createdBy)
 
 	var r0 error
 	if rf, ok := ret.Get(0).(func(context.Context, string, string, float32, int64) error); ok {
-		r0 = rf(ctx, name, description, price, created_by)
+		r0 = rf(ctx, name, description, price, createdBy)
 	} else {
 		r0 = ret.Error(0)
 	}

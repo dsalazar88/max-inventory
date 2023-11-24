@@ -19,6 +19,6 @@ func New(ctx context.Context, s *settings.Settings) (*sqlx.DB, error) {
 		s.DB.Port,
 		s.DB.Name,
 	)
-	fmt.Println(connString)
+
 	return sqlx.ConnectContext(ctx, "mysql", connString)
 }

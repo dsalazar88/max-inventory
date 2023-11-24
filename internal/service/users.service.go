@@ -4,15 +4,7 @@ import (
 	"context"
 	"courses/golang/inventory-project/encryption"
 	"courses/golang/inventory-project/internal/models"
-	"errors"
 	"log"
-)
-
-var (
-	ErrUserAlreadyExists  = errors.New("user already exists")
-	ErrInvalidCredentials = errors.New("invalid credentials")
-	ErrRoleAlreadyAdded   = errors.New("role was already added for this user")
-	ErrRoleNotFound       = errors.New("roles was not found")
 )
 
 // The `RegisterUser` function is responsible for registering a new user in the system. Here's a

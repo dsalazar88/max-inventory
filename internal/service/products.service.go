@@ -3,10 +3,13 @@ package service
 import (
 	"context"
 	"courses/golang/inventory-project/internal/models"
+	"errors"
 )
 
 var (
 	validRolesToAddProduct []int64 = []int64{1, 2}
+
+	ErrInvalidPermissions = errors.New("user does not have permission to add product")
 )
 
 // The `GetProducts` function is a method of a service struct (`serv`). It takes a `context.Context` as
@@ -49,42 +52,24 @@ func (s *serv) GetProduct(ctx context.Context, id int64) (*models.Product, error
 	return product, nil
 }
 
-// func (s *serv) AddProduct(ctx context.Context, product models.Product, email string) error {
-// 	u, err := s.repo.GetUserByEmail(ctx, email)
-// 	if err != nil {
-// 		return err
-// 	}
+// The `AddProduct` function is a method of a service struct (`serv`). It takes a `context.Context`, a
+// `models.Product`, and an email as parameters and returns an error.
+func (s *serv) AddProduct(ctx context.Context, product models.Product, email string) error {
+	u, err := s.repo.GetUserByEmail(ctx, email)
+	if err != nil {
+		return err
+	}
 
-// 	roles, err := s.repo.GetUserRoles(ctx, u.Id)
-// 	if err != nil {
-// 		return err
-// 	}
+	roles, err := s.repo.GetUserRoles(ctx, u.Id)
+	if err != nil {
+		return err
+	}
 
-// 	userCanAdd := false
+	userCanAdd := MyUtils.ValidRolesToAddProduct(roles, validRolesToAddProduct)
 
-// 	for _, r := range roles {
-// 		// for _, vr := range validRolesToAddProduct {
-// 		// 	if vr == r.RoleId {
-// 		// 		userCanAdd = true
-// 		// 	}
-// 		// }
-// 		if MyUtils.ValidRolesToAddProduct(validRolesToAddProduct, r.RoleId) {
-// 			userCanAdd = true
-// 			break
-// 		}
+	if !userCanAdd {
+		return ErrInvalidCredentials
+	}
 
-// 		s.utils.ValidRolesToAddProduct()
-// 	}
-
-// 	err = s.repo.SaveProduct(ctx, product.Name, product.Description, product.Price, u.Id)
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	return nil
-// }
-
-func (s *serv) Test() bool {
-	r := MyUtils.ValidRolesToAddProduct(validRolesToAddProduct, 1)
-	return r
+	return s.repo.SaveProduct(ctx, product.Name, product.Description, product.Price, u.Id)
 }
